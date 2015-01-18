@@ -1,0 +1,24 @@
+{
+    "name": "graphp/graphml",
+    "description": "GraphML is an XML-based file format for graphs",
+    "keywords": ["GraphML", "Graph XML"],
+    "homepage": "https://github.com/graphp/graphml",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Christian Lück",
+            "email": "christian@lueck.tv"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "ext-simplexml": "*",
+        "clue/graph": "~0.8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload": {
+        "psr-4": {"Graphp\\GraphML\\": "src/"}
+    }
+}
