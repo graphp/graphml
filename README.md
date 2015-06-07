@@ -2,7 +2,7 @@
 
 [GraphML](http://graphml.graphdrawing.org/) is an XML-based file format for graphs
 
-> Note: This project is in early alpha stage! Feel free to report any issues you encounter.
+> Note: This project is in early beta stage! Feel free to report any issues you encounter.
 
 ## Install
 
@@ -11,7 +11,7 @@ The recommended way to install this library is [through composer](http://getcomp
 ```JSON
 {
     "require": {
-        "graphp/graphml": "dev-master"
+        "graphp/graphml": "~0.1.0"
     }
 }
 ```
