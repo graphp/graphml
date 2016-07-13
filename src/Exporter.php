@@ -21,6 +21,13 @@ EOL;
     public function getOutput(Graph $graph)
     {
         $root = new SimpleXMLElement(self::SKEL);
+        
+        $weightKey = $root->addChild('key');
+        $weightKey['id'] = 'weight';
+        $weightKey['for'] = 'edge';
+        $weightKey['attr.name'] = 'weight';
+        $weightKey['attr.type'] = 'double';
+        $weightKey->addChild('default',1.0);
 
         $graphElem = $root->addChild('graph');
         $graphElem['edgeDefault'] = 'undirected';
@@ -36,6 +43,9 @@ EOL;
             $edgeElem = $graphElem->addChild('edge');
             $edgeElem['source'] = $edge->getVertices()->getVertexFirst()->getId();
             $edgeElem['target'] = $edge->getVertices()->getVertexLast()->getId();
+
+            $edgeData = $edgeElem->addChild('data',$edge->getWeight());
+            $edgeData['key'] = 'weight';
 
             if ($edge instanceof Directed) {
                 $edgeElem['directed'] = 'true';
