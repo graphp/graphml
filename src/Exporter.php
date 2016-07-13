@@ -36,6 +36,7 @@ EOL;
             $edgeElem = $graphElem->addChild('edge');
             $edgeElem['source'] = $edge->getVertices()->getVertexFirst()->getId();
             $edgeElem['target'] = $edge->getVertices()->getVertexLast()->getId();
+            $edgeElem['weight'] = $edge->getWeight();
 
             if ($edge instanceof Directed) {
                 $edgeElem['directed'] = 'true';
