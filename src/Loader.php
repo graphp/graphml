@@ -8,11 +8,19 @@ use Fhaculty\Graph\Attribute\AttributeAware;
 
 class Loader
 {
+    /**
+     * @param string $contents
+     * @return Graph
+     */
     public function loadContents($contents)
     {
         return $this->loadXml(new SimpleXMLElement($contents));
     }
 
+    /**
+     * @param SimpleXMLElement $root
+     * @return Graph
+     */
     private function loadXml(SimpleXMLElement $root)
     {
         $graph = new Graph();
@@ -61,6 +69,11 @@ class Loader
         return $graph;
     }
 
+    /**
+     * @param SimpleXMLElement $xml
+     * @param AttributeAware $target
+     * @param array $keys
+     */
     private function loadAttributes(SimpleXMLElement $xml, AttributeAware $target, array $keys)
     {
         // apply all default values for this type
@@ -78,6 +91,11 @@ class Loader
         }
     }
 
+    /**
+     * @param mixed $value
+     * @param string $type
+     * @return mixed
+     */
     private function castAttribute($value, $type)
     {
         if ($type === 'boolean') {

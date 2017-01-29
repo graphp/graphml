@@ -18,6 +18,10 @@ class Exporter implements ExporterInterface
 </graphml>
 EOL;
 
+    /**
+     * @param Graph $graph
+     * @return string|bool
+     */
     public function getOutput(Graph $graph)
     {
         $root = new SimpleXMLElement(self::SKEL);
