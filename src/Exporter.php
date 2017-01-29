@@ -19,7 +19,7 @@ class Exporter implements ExporterInterface
 EOL;
 
     /**
-     * @param \Fhaculty\Graph\Graph $graph
+     * @param Graph $graph
      * @return string|bool
      */
     public function getOutput(Graph $graph)

@@ -10,7 +10,7 @@ class Loader
 {
     /**
      * @param string $contents
-     * @return \Fhaculty\Graph\Graph
+     * @return Graph
      */
     public function loadContents($contents)
     {
@@ -18,8 +18,8 @@ class Loader
     }
 
     /**
-     * @param \SimpleXMLElement $root
-     * @return \Fhaculty\Graph\Graph
+     * @param SimpleXMLElement $root
+     * @return Graph
      */
     private function loadXml(SimpleXMLElement $root)
     {
@@ -70,8 +70,8 @@ class Loader
     }
 
     /**
-     * @param \SimpleXMLElement $xml
-     * @param \Fhaculty\Graph\Attribute\AttributeAware $target
+     * @param SimpleXMLElement $xml
+     * @param AttributeAware $target
      * @param array $keys
      */
     private function loadAttributes(SimpleXMLElement $xml, AttributeAware $target, array $keys)
@@ -94,7 +94,7 @@ class Loader
     /**
      * @param mixed $value
      * @param string $type
-     * @return bool|float|int
+     * @return mixed
      */
     private function castAttribute($value, $type)
     {
