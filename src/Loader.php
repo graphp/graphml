@@ -8,11 +8,41 @@ use Fhaculty\Graph\Attribute\AttributeAware;
 
 class Loader
 {
+    /**
+     * Loads a graph instance from the given GraphML contents.
+     *
+     * ```php
+     * $data = file_get_contents('example.graphml');
+     *
+     * $loader = new Graphp\GraphML\Loader();
+     * $graph = $loader->loadContents($data);
+     *
+     * foreach ($graph->getVertices() as $vertex) {
+     *     foreach ($vertex->getVerticesEdgeTo() as other) {
+     *         echo $vertex->getId() . ' connected with ' . $other->getId() . PHP_EOL;
+     *     }
+     * }
+     * ```
+     *
+     * This method supports loading the graph, all vertices and directed and
+     * undirected edges among with any attributes attached from the GraphML
+     * source.
+     *
+     * Note that neither of the "advanced concepts" of GraphML (Nested Graphs,
+     * Hyperedges and Ports) are currently implemented. We welcome PRs!
+     *
+     * @param string $contents
+     * @return Graph
+     */
     public function loadContents($contents)
     {
         return $this->loadXml(new SimpleXMLElement($contents));
     }
 
+    /**
+     * @param SimpleXMLElement $root
+     * @return Graph
+     */
     private function loadXml(SimpleXMLElement $root)
     {
         $graph = new Graph();
@@ -61,6 +91,11 @@ class Loader
         return $graph;
     }
 
+    /**
+     * @param SimpleXMLElement $xml
+     * @param AttributeAware $target
+     * @param array $keys
+     */
     private function loadAttributes(SimpleXMLElement $xml, AttributeAware $target, array $keys)
     {
         // apply all default values for this type
@@ -78,6 +113,11 @@ class Loader
         }
     }
 
+    /**
+     * @param string $value
+     * @param string $type
+     * @return bool|int|float|string
+     */
     private function castAttribute($value, $type)
     {
         if ($type === 'boolean') {
