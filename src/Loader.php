@@ -9,6 +9,28 @@ use Fhaculty\Graph\Attribute\AttributeAware;
 class Loader
 {
     /**
+     * Loads a graph instance from the given GraphML contents.
+     *
+     * ```php
+     * $data = file_get_contents('example.graphml');
+     *
+     * $loader = new Graphp\GraphML\Loader();
+     * $graph = $loader->loadContents($data);
+     *
+     * foreach ($graph->getVertices() as $vertex) {
+     *     foreach ($vertex->getVerticesEdgeTo() as other) {
+     *         echo $vertex->getId() . ' connected with ' . $other->getId() . PHP_EOL;
+     *     }
+     * }
+     * ```
+     *
+     * This method supports loading the graph, all vertices and directed and
+     * undirected edges among with any attributes attached from the GraphML
+     * source.
+     *
+     * Note that neither of the "advanced concepts" of GraphML (Nested Graphs,
+     * Hyperedges and Ports) are currently implemented. We welcome PRs!
+     *
      * @param string $contents
      * @return Graph
      */
@@ -92,9 +114,9 @@ class Loader
     }
 
     /**
-     * @param mixed $value
+     * @param string $value
      * @param string $type
-     * @return mixed
+     * @return bool|int|float|string
      */
     private function castAttribute($value, $type)
     {
