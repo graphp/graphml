@@ -4,6 +4,9 @@ use Graphp\GraphML\Loader;
 
 class LoaderTest extends TestCase
 {
+    /**
+     * @var Loader
+     */
     private $loader;
 
     public function setUp()
@@ -174,5 +177,63 @@ EOL;
 
         $this->assertEquals('n0', $vertex->getId());
         $this->assertEquals('yellow', $vertex->getAttribute('color'));
+    }
+
+    public function testCustomAttributesWithPrefix()
+    {
+        $data = <<<EOL
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"  
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns 
+                                graphml+xlink.xsd">
+  <graph edgedefault="directed">
+    <node id="n0" xlink:href="http://graphml.graphdrawing.org"/>
+    <node id="n1" />
+    <edge source="n0" target="n1" xlink:href="http://graphdrawing.org"/>
+  </graph>
+</graphml>
+EOL;
+        $this->loader = new Loader();
+        $this->loader->registerAttributeNamespace('xlink', true);
+        $graph = $this->loader->loadContents($data);
+
+        $vertex = $graph->getVertices()->getVertexFirst();
+
+        $this->assertEquals('n0', $vertex->getId());
+        $this->assertEquals('http://graphml.graphdrawing.org', $vertex->getAttribute('xlink:href'));
+
+        $edge = $graph->getEdges()->getEdgeFirst();
+        $this->assertEquals('http://graphdrawing.org', $edge->getAttribute('xlink:href'));
+    }
+
+    public function testCustomAttributesWithNamespace()
+    {
+        $data = <<<EOL
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"  
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns 
+                                graphml+xlink.xsd">
+  <graph edgedefault="directed">
+    <node id="n0" xlink:href="http://graphml.graphdrawing.org"/>
+    <node id="n1" />
+    <edge source="n0" target="n1" xlink:href="http://graphdrawing.org"/>
+  </graph>
+</graphml>
+EOL;
+        $this->loader = new Loader();
+        $this->loader->registerAttributeNamespace('http://www.w3.org/1999/xlink', false);
+        $graph = $this->loader->loadContents($data);
+
+        $vertex = $graph->getVertices()->getVertexFirst();
+
+        $this->assertEquals('n0', $vertex->getId());
+        $this->assertEquals('http://graphml.graphdrawing.org', $vertex->getAttribute('href'));
+
+        $edge = $graph->getEdges()->getEdgeFirst();
+        $this->assertEquals('http://graphdrawing.org', $edge->getAttribute('href'));
     }
 }
