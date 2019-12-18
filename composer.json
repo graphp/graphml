@@ -13,7 +13,7 @@
     "require": {
         "php": ">=5.3",
         "ext-simplexml": "*",
-        "clue/graph": "~0.9.0|~0.8.0"
+        "graphp/graph": "~0.9.0|~0.8.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.4 || ^5.7 || ^4.8.35"
