@@ -1,5 +1,7 @@
 <?php
 
+namespace Graphp\Tests\GraphML;
+
 use Fhaculty\Graph\Graph;
 use Graphp\GraphML\Exporter;
 
@@ -7,7 +9,10 @@ class ExporterTest extends TestCase
 {
     private $exporter;
 
-    public function setUp()
+    /**
+     * @before
+     */
+    public function setUpExporter()
     {
         $this->exporter = new Exporter();
     }
@@ -17,7 +22,7 @@ class ExporterTest extends TestCase
         $graph = new Graph();
 
         $output = $this->exporter->getOutput($graph);
-        $xml = new SimpleXMLElement($output);
+        $xml = new \SimpleXMLElement($output);
 
         $this->assertEquals(1, count($xml));
         $this->assertEquals(1, count($xml->graph));
@@ -33,7 +38,7 @@ class ExporterTest extends TestCase
         $v1->createEdge($v2);
 
         $output = $this->exporter->getOutput($graph);
-        $xml = new SimpleXMLElement($output);
+        $xml = new \SimpleXMLElement($output);
 
         $this->assertEquals(1, count($xml->graph->edge));
 
@@ -52,7 +57,7 @@ class ExporterTest extends TestCase
         $v1->createEdgeTo($v2);
 
         $output = $this->exporter->getOutput($graph);
-        $xml = new SimpleXMLElement($output);
+        $xml = new \SimpleXMLElement($output);
 
         $this->assertEquals(1, count($xml->graph->edge));
 

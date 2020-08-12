@@ -1,12 +1,17 @@
 <?php
 
+namespace Graphp\Tests\GraphML;
+
 use Graphp\GraphML\Loader;
 
 class LoaderTest extends TestCase
 {
     private $loader;
 
-    public function setUp()
+    /**
+     * @before
+     */
+    public function setUpLoader()
     {
         $this->loader = new Loader();
     }
