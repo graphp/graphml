@@ -1,5 +1,7 @@
 <?php
 
+namespace Graphp\Tests\GraphML;
+
 use Fhaculty\Graph\Graph;
 use Graphp\GraphML\Exporter;
 use Graphp\GraphML\Loader;
