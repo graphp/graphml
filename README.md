@@ -1,4 +1,6 @@
-# graphp/graphml [![Build Status](https://travis-ci.org/graphp/graphml.svg?branch=master)](https://travis-ci.org/graphp/graphml)
+# graphp/graphml
+
+[![CI status](https://github.com/graphp/graphml/workflows/CI/badge.svg)](https://github.com/graphp/graphml/actions)
 
 [GraphML](http://graphml.graphdrawing.org/) is an XML-based file format for graphs
 
