@@ -9,6 +9,11 @@ use Fhaculty\Graph\Attribute\AttributeAware;
 class Loader
 {
     /**
+     * @var array
+     **/
+    private $attributeNamespaces = array();
+
+    /**
      * Loads a graph instance from the given GraphML contents.
      *
      * ```php
@@ -37,6 +42,11 @@ class Loader
     public function loadContents($contents)
     {
         return $this->loadXml(new SimpleXMLElement($contents));
+    }
+
+    public function registerAttributeNamespace($ns, $isPrefix)
+    {
+        $this->attributeNamespaces[$ns] = $isPrefix;
     }
 
     /**
@@ -110,6 +120,13 @@ class Loader
         foreach ($xml->data as $dataElem) {
             $key = $keys[(string)$dataElem['key']];
             $target->setAttribute($key['name'], $this->castAttribute((string)$dataElem, $key['type']));
+        }
+
+        foreach ($this->attributeNamespaces as $attributeNamespace => $isPrefix) {
+            foreach ($xml->attributes($attributeNamespace, $isPrefix) as $attribute => $attributeValue) {
+                $attributeName = $isPrefix ? $attributeNamespace . ':' . $attribute : $attribute;
+                $target->setAttribute($attributeName, $this->castAttribute((string) $attributeValue, ''));
+            }
         }
     }
 
